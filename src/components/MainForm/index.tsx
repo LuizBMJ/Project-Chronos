@@ -6,6 +6,8 @@ import { useRef } from 'react'
 import { getNextCycle } from '../../utils/getNextCycle'
 import type { TaskModel } from '../../models/TaskModel'
 import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext'
+import { getNextCycletype } from '../../utils/getNextCycleType'
+import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes'
 
 export function MainForm() {
   const { state, setState } = useTaskContext()
@@ -13,6 +15,11 @@ export function MainForm() {
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle)
+  const nextCycleType = getNextCycletype(nextCycle)
+
+  console.log('state.currentCycle', state.currentCycle)
+  console.log('nextCycle', nextCycle)
+  console.log('nextCycleType', nextCycleType)
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -32,8 +39,8 @@ export function MainForm() {
       startDate: Date.now(),
       completeDate: null,
       interuptedDate: null,
-      duration: 1,
-      type: 'workTime',
+      duration: state.config[nextCycleType],
+      type: nextCycleType,
     }
 
     const secondsRemaining = newTask.duration * 60
@@ -45,7 +52,7 @@ export function MainForm() {
         activeTask: newTask,
         currentCycle: nextCycle,
         secondsRemaining, // Conferir
-        formattedSecondsRemaining: '00:00', // Conferir
+        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining), // Conferir
         tasks: [...prevState.tasks, newTask],
       }
     })
@@ -64,7 +71,10 @@ export function MainForm() {
       </div>
 
       <div className='formRow'>
-        <p>Próximo intervalo é de 25min</p>
+        <p>
+          O proximo ciclo é: <strong>{nextCycleType}</strong> com duração de{' '}
+          <strong>{formatSecondsToMinutes(state.config[nextCycleType])}</strong>
+        </p>
       </div>
 
       <div className='formRow'>
