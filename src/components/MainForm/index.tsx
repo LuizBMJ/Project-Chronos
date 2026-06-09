@@ -17,10 +17,7 @@ export function MainForm() {
   const nextCycle = getNextCycle(state.currentCycle)
   const nextCycleType = getNextCycleType(nextCycle)
 
-  console.log('state.currentCycle', state.currentCycle)
-  console.log('nextCycle', nextCycle)
-  console.log('nextCycleType', nextCycleType)
-
+  console.log('O array da task é: ', state)
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -65,6 +62,15 @@ export function MainForm() {
         activeTask: null,
         secondsRemaining: 0,
         formattedSecondsRemaining: '00:00',
+        tasks: prevState.tasks.map((task) => {
+          if (task.id === prevState.activeTask?.id) {
+            return {
+              ...task,
+              interuptedDate: Date.now(),
+            }
+          }
+          return task
+        }),
       }
     })
   }
