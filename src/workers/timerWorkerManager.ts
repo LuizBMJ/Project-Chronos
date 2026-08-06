@@ -18,7 +18,7 @@ export class TimerWorkerManager {
     this.worker.postMessage(message)
   }
 
-  public onMessage(callback: (event: MessageEvent) => void): void {
+  public onmessage(callback: (event: MessageEvent) => void): void {
     this.worker.onmessage = callback
   }
 
