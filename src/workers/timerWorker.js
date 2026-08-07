@@ -1,8 +1,13 @@
+let runningTaskId = null
+
 self.onmessage = (event) => {
   const state = event.data
   const { activeTask, secondsRemaining } = state
 
   if (!activeTask) return
+  if (runningTaskId === activeTask.id) return
+
+  runningTaskId = activeTask.id
 
   const endDate = activeTask.startDate + secondsRemaining * 1000
   const now = Date.now()
