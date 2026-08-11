@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { Container } from '../../components/Container'
 import { GenericHtml } from '../../components/GenericHtml'
 import { Heading } from '../../components/Heading'
@@ -48,8 +49,8 @@ export function AboutPomodoro() {
           <h3>⚙️ Personalização do tempo</h3>
           <p>
             Você pode configurar o tempo de foco, descanso curto e descanso longo do jeito que
-            quiser! Basta acessar a <a href='/settings'>página de configurações</a> e ajustar os
-            minutos como preferir.
+            quiser! Basta acessar a <Link to='/settings'>página de configurações</Link> e ajustar
+            os minutos como preferir.
           </p>
 
           <h3>🔁 Ciclos organizados em sequência</h3>
@@ -88,8 +89,8 @@ export function AboutPomodoro() {
           <h3>📊 Histórico automático</h3>
           <p>
             Todas as suas tarefas e ciclos concluídos ficam salvos no{' '}
-            <a href='/history'>histórico</a>, com status de completas ou interrompidas. Assim, você
-            consegue acompanhar sua evolução ao longo do tempo.
+            <Link to='/history'>histórico</Link>, com status de completas ou interrompidas. Assim,
+            você consegue acompanhar sua evolução ao longo do tempo.
           </p>
 
           <h2>Por que usar o Chronos Pomodoro?</h2>
@@ -101,8 +102,8 @@ export function AboutPomodoro() {
           </ul>
 
           <p>
-            <strong>Pronto pra focar?</strong> Bora lá <a href='/'>voltar para a página inicial</a>{' '}
-            e iniciar seus Pomodoros! 🍅🚀
+            <strong>Pronto pra focar?</strong> Bora lá{' '}
+            <Link to='/'>voltar para a página inicial</Link> e iniciar seus Pomodoros! 🍅🚀
           </p>
 
           <p>
