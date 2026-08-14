@@ -26,7 +26,7 @@ export function Cycles() {
             <span
               key={`${nextCycleType}_${nextCycle}`}
               className={`${styles.cycleDot} ${styles[nextCycleType]}`}
-              arial-label={`Indicador de ciclo de foco: ${cycleDescriptionMap[nextCycleType]}`}
+              aria-label={`Indicador de ciclo de foco: ${cycleDescriptionMap[nextCycleType]}`}
               title={`Indicador de ciclo de foco: ${cycleDescriptionMap[nextCycleType]}`}
             ></span>
           )

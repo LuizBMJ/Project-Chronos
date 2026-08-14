@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
 import { initialTaskState } from './InitialTaskState'
 import { TaskContext } from './TaskContext'
 import { taskReducer } from './taskReducer'
@@ -16,7 +16,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   const lastActiveTaskIdRef = useRef<string | null>(null)
   const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null)
 
-  function handleWorkerMessage(e: MessageEvent) {
+  const handleWorkerMessage = useCallback((e: MessageEvent) => {
     const countDownSeconds = e.data
 
     if (countDownSeconds <= 0) {
@@ -34,7 +34,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
         payload: { secondsRemaining: countDownSeconds },
       })
     }
-  }
+  }, [])
 
   useEffect(() => {
     workerRef.current = TimerWorkerManager.getInstance()
@@ -43,7 +43,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     return () => {
       workerRef.current?.terminate()
     }
-  }, [])
+  }, [handleWorkerMessage])
 
   useEffect(() => {
     const currentTaskId = state.activeTask?.id ?? null
@@ -62,7 +62,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
 
     lastActiveTaskIdRef.current = currentTaskId
     workerRef.current?.postMessage(state)
-  }, [state])
+  }, [state, handleWorkerMessage])
 
   useEffect(() => {
     if (state.activeTask && playBeepRef.current === null) {
