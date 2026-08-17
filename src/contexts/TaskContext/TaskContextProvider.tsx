@@ -40,10 +40,12 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     workerRef.current = TimerWorkerManager.getInstance()
     workerRef.current.onmessage(handleWorkerMessage)
 
+    document.title = state.activeTask ? `${state.formattedSecondsRemaining} - Chronos` : 'Chronos'
+
     return () => {
       workerRef.current?.terminate()
     }
-  }, [handleWorkerMessage])
+  }, [handleWorkerMessage, state])
 
   useEffect(() => {
     const currentTaskId = state.activeTask?.id ?? null
