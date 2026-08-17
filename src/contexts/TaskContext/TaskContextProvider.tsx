@@ -11,7 +11,22 @@ type TaskContextProviderProps = {
 }
 
 export function TaskContextProvider({ children }: TaskContextProviderProps) {
-  const [state, dispatch] = useReducer(taskReducer, initialTaskState)
+  const [state, dispatch] = useReducer(taskReducer, initialTaskState, () => {
+    const storageState = localStorage.getItem('state')
+
+    if (storageState === null) return initialTaskState
+
+    try {
+      const parsedState = JSON.parse(storageState)
+      if (typeof parsedState === 'object' && parsedState !== null) {
+        return { ...initialTaskState, ...parsedState }
+      }
+    } catch {
+      // Ignore JSON parse errors
+    }
+
+    return initialTaskState
+  })
   const workerRef = useRef<TimerWorkerManager | null>(null)
   const lastActiveTaskIdRef = useRef<string | null>(null)
   const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null)
@@ -39,6 +54,7 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   useEffect(() => {
     workerRef.current = TimerWorkerManager.getInstance()
     workerRef.current.onmessage(handleWorkerMessage)
+    localStorage.setItem('state', JSON.stringify(state))
 
     document.title = state.activeTask ? `${state.formattedSecondsRemaining} - Chronos` : 'Chronos'
 
