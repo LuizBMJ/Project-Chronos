@@ -34,11 +34,16 @@ function Menu() {
       <Link to='/' className={styles.menuLink} aria-label='Ir para Home' title='Home'>
         <HouseIcon />
       </Link>
-      <Link to='#' className={styles.menuLink} aria-label='Ir para Histórico' title='Histórico'>
+      <Link
+        to='/history/'
+        className={styles.menuLink}
+        aria-label='Ir para Histórico'
+        title='Histórico'
+      >
         <HistoryIcon />
       </Link>
       <Link
-        to='#'
+        to='/settings/'
         className={styles.menuLink}
         aria-label='Ir para Configurações'
         title='Configurações'
