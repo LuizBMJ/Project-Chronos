@@ -9,7 +9,7 @@ import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext'
 import { formatDate } from '../../utils/formatDate'
 import { getTaskStatus } from '../../utils/getTaskStatus'
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions'
 
 export function History() {
@@ -23,26 +23,21 @@ export function History() {
     }
   })
 
-  useEffect(() => {
-    setSortTaskOptions((prevState) => ({
-      ...prevState,
-      tasks: sortTasks({
+  const sortedTasks = useMemo(
+    () =>
+      sortTasks({
         tasks: state.tasks,
-        direction: prevState.direction,
-        field: prevState.field,
+        direction: sortTasksOptions.direction,
+        field: sortTasksOptions.field,
       }),
-    }))
-  }, [state.tasks])
+    [state.tasks, sortTasksOptions.direction, sortTasksOptions.field],
+  )
 
   function handleSortTasks({ field }: Pick<SortTasksOptions, 'field'>) {
     const newDirection = sortTasksOptions.direction === 'desc' ? 'asc' : 'desc'
 
     setSortTaskOptions({
-      tasks: sortTasks({
-        direction: newDirection,
-        tasks: sortTasksOptions.tasks,
-        field,
-      }),
+      tasks: sortTasksOptions.tasks,
       direction: newDirection,
       field,
     })
@@ -100,7 +95,7 @@ export function History() {
               </thead>
 
               <tbody>
-                {sortTasksOptions.tasks.map((task) => {
+                {sortedTasks.map((task) => {
                   const taskTypeDictionary = {
                     workTime: 'Foco',
                     shortBreakTime: 'Descanso curto',
