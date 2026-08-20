@@ -42,13 +42,13 @@ export function taskReducer(state: TaskStateModel, action: TaskActionModel): Tas
         activeTask: null,
         secondsRemaining: 0,
         formattedSecondsRemaining: '00:00',
-        tasks: state.tasks.map(task => {
+        tasks: state.tasks.map((task) => {
           if (state.activeTask && state.activeTask.id === task.id) {
-            return { ...task, completeDate: Date.now() };
+            return { ...task, completeDate: Date.now() }
           }
-          return task;
+          return task
         }),
-      };
+      }
     }
     case TaskActionTypes.RESET_STATE: {
       return initialTaskState
