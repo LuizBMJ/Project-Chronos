@@ -1,3 +1,5 @@
+'use no memo'
+
 import { DefaultButton } from '../DefaultButton'
 import { ThumbsDownIcon, ThumbsUpIcon } from 'lucide-react'
 
