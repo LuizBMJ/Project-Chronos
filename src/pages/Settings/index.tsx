@@ -9,7 +9,7 @@ import { useRef } from 'react'
 import { showMessage } from '../../adapters/showMessage'
 
 export function Settings() {
-  const { state } = useTaskContext()
+  const { state, dispatch } = useTaskContext()
   const workTimeInput = useRef<HTMLInputElement>(null)
   const shortBreakTimeInput = useRef<HTMLInputElement>(null)
   const longBreakTimeInput = useRef<HTMLInputElement>(null)
@@ -46,7 +46,16 @@ export function Settings() {
       return
     }
 
-    console.log('SALVAR')
+    dispatch({
+      type: 'CHANGE_SETTINGS',
+      payload: {
+        workTime,
+        shortBreakTime,
+        longBreakTime,
+      },
+    })
+
+    showMessage.success('Configurações salvas com sucesso!')
   }
 
   return (

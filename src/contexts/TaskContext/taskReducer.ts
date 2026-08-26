@@ -61,6 +61,17 @@ export function taskReducer(state: TaskStateModel, action: TaskActionModel): Tas
         formattedSecondsRemaining: formatSecondsToMinutes(action.payload.secondsRemaining),
       }
     }
+    case TaskActionTypes.CHANGE_SETTINGS: {
+      return {
+        ...state,
+        config: {
+          ...state.config,
+          workTime: action.payload.workTime,
+          shortBreakTime: action.payload.shortBreakTime,
+          longBreakTime: action.payload.longBreakTime,
+        },
+      }
+    }
   }
 
   // Sempre deve retornar o estado
