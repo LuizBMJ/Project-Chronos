@@ -7,6 +7,7 @@ import { MainTemplate } from '../../templates/MainTemplate'
 import { useTaskContext } from '../../contexts/TaskContext/UseTaskContext'
 import { useRef } from 'react'
 import { showMessage } from '../../adapters/showMessage'
+import styles from './styles.module.css'
 
 export function Settings() {
   const { state, dispatch } = useTaskContext()
@@ -65,14 +66,14 @@ export function Settings() {
       </Container>
 
       <Container>
-        <p style={{ textAlign: 'center' }}>
+        <p className={styles.description}>
           Modifique as configurações para tempo de foco, descanso curso e descanso longo.
         </p>
       </Container>
 
       <Container>
-        <form onSubmit={handleSaveSettings} action='' className='form'>
-          <div className='formRow'>
+        <form onSubmit={handleSaveSettings} action='' className={styles.form}>
+          <div className={styles.formRow}>
             <DefaultInput
               id='workTime'
               labelText='Foco'
@@ -81,7 +82,7 @@ export function Settings() {
               type='number'
             />
           </div>
-          <div className='formRow'>
+          <div className={styles.formRow}>
             <DefaultInput
               id='shortBreakTime'
               labelText='Descanso curto'
@@ -90,7 +91,7 @@ export function Settings() {
               type='number'
             />
           </div>
-          <div className='formRow'>
+          <div className={styles.formRow}>
             <DefaultInput
               id='longBreakTime'
               labelText='Descanso longo'
@@ -99,7 +100,7 @@ export function Settings() {
               type='number'
             />
           </div>
-          <div className='formRow'>
+          <div className={styles.formRow}>
             <DefaultButton
               icon={<SaveIcon />}
               aria-label='Salvar configurações'

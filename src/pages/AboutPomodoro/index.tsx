@@ -74,11 +74,14 @@ export function AboutPomodoro() {
           </ul>
 
           <h3>🍅 Visualização dos ciclos</h3>
-          <p>Logo abaixo do cronômetro, você verá bolinhas coloridas representando os ciclos:</p>
+          <p>
+            Logo acima do cronômetro, você verá um arco circular dividido em 8 segmentos, cada um
+            representando um ciclo:
+          </p>
           <ul>
-            <li>🟡 Amarelo: Ciclo de trabalho (foco).</li>
-            <li>🟢 Verde: Descanso curto.</li>
-            <li>🔵 Azul: Descanso longo (aparece a cada 8 ciclos).</li>
+            <li>Segmentos preenchidos em bronze: ciclos concluídos (foco e descanso curto).</li>
+            <li>Segmento preenchido em vermelho: descanso longo (ciclo 8).</li>
+            <li>Segmentos transparentes: ciclos ainda não iniciados.</li>
           </ul>
 
           <p>
